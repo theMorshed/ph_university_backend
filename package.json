@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start:prod": "node ./dist/server.ts", 
+    "start:dev": "ts-node-dev --respawn --transpile-only src/server.ts", 
     "build": "tsc",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix",
@@ -17,7 +19,8 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
-    "mongoose": "^8.8.1"
+    "mongoose": "^8.8.1",
+    "ts-node-dev": "^2.0.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
