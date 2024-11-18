@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import { model, Schema } from "mongoose";
 import { TName, TGuardian, TLocalGuardian, TStudent } from "./student_interface";
 
 const nameSchema = new Schema<TName>({
@@ -77,3 +77,5 @@ const studentSchema = new Schema<TStudent>({
     profileImage: {type: String, required: true},
     isActive: ['active', 'blocked']
 })
+
+export const StudentModel = model<TStudent>('Student', studentSchema);
