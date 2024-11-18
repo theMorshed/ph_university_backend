@@ -1,7 +1,7 @@
-import express from 'express';
+import express, { Application } from 'express';
 import cors from 'cors';
 import { StudentRoutes } from './modules/student/student_router';
-const app = express();
+const app: Application = express();
 
 // parser
 app.use(express.json());
