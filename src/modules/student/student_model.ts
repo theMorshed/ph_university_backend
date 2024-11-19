@@ -62,20 +62,42 @@ const localGuardianSchema = new Schema<TLocalGuardian>({
 })
 
 const studentSchema = new Schema<TStudent>({
-    id: {type: String},
-    name: nameSchema,
-    gender: ['male', 'female'],
-    dob: {type: String, required: true},
-    email: {type: String, required: true},
-    contactNo: {type: String, required: true},
+    id: {
+        type: String,
+        required: [true, "Id is required"],
+        unique: true,
+    },
+    name: {
+        type: nameSchema,
+        required: [true, "Name is required"],
+    },
+    gender: {
+        type: String,
+        enum: {
+            values: ['male', 'female', 'others'],
+            message: '{VALUE} is not valid',
+        },
+        required: [true, "Gender is required"],
+    },
+    dob: {type: String, required: [true, "dob is required"]},
+    email: {type: String, required: [true, "Email is required"], unique: true},
+    contactNo: {type: String, required: [true, "ContactNo is required"]},
     emergencyContactNo: {type: String, required: true},
-    bloodGroup: {type: String},
+    bloodGroup: {
+        type: String,
+        enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
+        required: true,
+    },
     presentAddress: {type: String, required: true},
     parmanentAddress: {type: String, required: true},
     guardian: guardianSchema,
     localGuardian: localGuardianSchema,
     profileImage: {type: String, required: true},
-    isActive: ['active', 'blocked']
+    isActive: {
+        type: String,
+        enum: ['active', 'blocked'],
+        default: 'active',
+    }
 })
 
 export const StudentModel = model<TStudent>('Student', studentSchema);
