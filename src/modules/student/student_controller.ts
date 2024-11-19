@@ -11,11 +11,11 @@ const createStudent = async(req: Request, res: Response) => {
             message: 'Student created successfully',
             data: result
         })
-    } catch(err) {
+    } catch(error) {
         res.status(500).json({
             success: false,
             message: "Failed to retrieve data",
-            data: err,
+            error: error,
         })
     }
 }
@@ -28,11 +28,11 @@ const getAllStudents = async(req: Request, res: Response) => {
             message: 'All students fetch successfully',
             data: result
         })
-    }catch(err) {
+    }catch(error) {
         res.status(500).json({
             success: false,
             message: "Failed to retrieve data",
-            data: err,
+            error: error,
         })
     }
 }
@@ -46,11 +46,11 @@ const getSingleStudent = async(req: Request, res: Response) => {
             message: `Student - ${studentId} retrieved successfully`,
             data: result
         })
-    }catch(err) {
+    }catch(error) {
         res.status(500).json({
             success: false,
             message: "Failed to retrieve data",
-            data: err,
+            error: error,
         })
     }
 }

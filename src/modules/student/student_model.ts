@@ -4,100 +4,141 @@ import { TName, TGuardian, TLocalGuardian, TStudent } from "./student_interface"
 const nameSchema = new Schema<TName>({
     firstName: {
         type: String,
-        required: true
+        trim: true,
+        required: [true, "First name is required"],
+        validate: {
+            validator: function (fname: string) {
+                return fname === fname.charAt(0).toUpperCase() + fname.slice(1);
+            },
+            message: '{VALUE} must be in Capitalize format',
+        }
     },
     middleName: {
         type: String
     },
     lastName: {
         type: String,
-        required: true
+        required: [true, "Last name is required"]
     }
-})
+});
 
 const guardianSchema = new Schema<TGuardian>({
     fatherName: {
         type: String,
-        required: true
+        required: [true, "Father's name is required"],        
     },
     fatherOccupation: {
         type: String,
-        required: true
+        required: [true, "Father's occupation is required"]
     },
     fatherContactNo: {
         type: String,
-        required: true
+        required: [true, "Father's contact number is required"]
     },
     motherName: {
         type: String,
-        required: true
+        required: [true, "Mother's name is required"]
     },
     motherOccupation: {
         type: String,
-        required: true
+        required: [true, "Mother's occupation is required"]
     },
     motherContactNo: {
         type: String,
-        required: true
+        required: [true, "Mother's contact number is required"]
     },
-})
+});
 
 const localGuardianSchema = new Schema<TLocalGuardian>({
     name: {
         type: String,
-        required: true
+        required: [true, "Local guardian's name is required"]
     },
     occupation: {
         type: String,
-        required: true
+        required: [true, "Local guardian's occupation is required"]
     },
     address: {
         type: String,
-        required: true
+        required: [true, "Local guardian's address is required"]
     },
     contactNo: {
         type: String,
-        required: true
+        required: [true, "Local guardian's contact number is required"]
     }
-})
+});
 
 const studentSchema = new Schema<TStudent>({
     id: {
         type: String,
-        required: [true, "Id is required"],
+        required: [true, "Student ID is required"],
         unique: true,
     },
     name: {
         type: nameSchema,
-        required: [true, "Name is required"],
+        required: [true, "Student name is required"],
     },
     gender: {
         type: String,
         enum: {
             values: ['male', 'female', 'others'],
-            message: '{VALUE} is not valid',
+            message: '{VALUE} is not a valid gender',
         },
         required: [true, "Gender is required"],
     },
-    dob: {type: String, required: [true, "dob is required"]},
-    email: {type: String, required: [true, "Email is required"], unique: true},
-    contactNo: {type: String, required: [true, "ContactNo is required"]},
-    emergencyContactNo: {type: String, required: true},
+    dob: {
+        type: String,
+        required: [true, "Date of birth is required"]
+    },
+    email: {
+        type: String,
+        required: [true, "Email is required"],
+        unique: true
+    },
+    contactNo: {
+        type: String,
+        required: [true, "Contact number is required"]
+    },
+    emergencyContactNo: {
+        type: String,
+        required: [true, "Emergency contact number is required"]
+    },
     bloodGroup: {
         type: String,
-        enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
-        required: true,
+        enum: {
+            values: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
+            message: '{VALUE} is not a valid blood group'
+        },
+        required: [true, "Blood group is required"]
     },
-    presentAddress: {type: String, required: true},
-    parmanentAddress: {type: String, required: true},
-    guardian: guardianSchema,
-    localGuardian: localGuardianSchema,
-    profileImage: {type: String, required: true},
+    presentAddress: {
+        type: String,
+        required: [true, "Present address is required"]
+    },
+    parmanentAddress: {
+        type: String,
+        required: [true, "Permanent address is required"]
+    },
+    guardian: {
+        type: guardianSchema,
+        required: [true, "Guardian information is required"]
+    },
+    localGuardian: {
+        type: localGuardianSchema,
+        required: [true, "Local guardian information is required"]
+    },
+    profileImage: {
+        type: String,
+        required: [true, "Profile image is required"]
+    },
     isActive: {
         type: String,
-        enum: ['active', 'blocked'],
+        enum: {
+            values: ['active', 'blocked'],
+            message: '{VALUE} is not a valid status'
+        },
         default: 'active',
     }
-})
+});
 
 export const StudentModel = model<TStudent>('Student', studentSchema);
