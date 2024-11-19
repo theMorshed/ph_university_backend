@@ -1,5 +1,6 @@
 import { model, Schema } from "mongoose";
 import { TName, TGuardian, TLocalGuardian, TStudent } from "./student_interface";
+import validator from "validator";
 
 const nameSchema = new Schema<TName>({
     firstName: {
@@ -18,7 +19,11 @@ const nameSchema = new Schema<TName>({
     },
     lastName: {
         type: String,
-        required: [true, "Last name is required"]
+        required: [true, "Last name is required"],
+        validate: {
+            validator: (lname: string) => validator.isAlpha(lname),
+            message: "{VALUE} is not valid"
+        }
     }
 });
 
