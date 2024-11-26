@@ -27,6 +27,7 @@ const createStudent = async(req: Request, res: Response) => {
             success: false,
             message: "Failed to retrieve data",
             error: error,
+            stack: new Error().stack
         })
     }
 }
