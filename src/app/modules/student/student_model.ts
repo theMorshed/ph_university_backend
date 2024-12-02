@@ -126,7 +126,7 @@ const studentSchema = new Schema<TStudent>({
         type: String,
         required: [true, "Present address is required"]
     },
-    parmanentAddress: {
+    permanentAddress: {
         type: String,
         required: [true, "Permanent address is required"]
     },
@@ -138,7 +138,7 @@ const studentSchema = new Schema<TStudent>({
         type: localGuardianSchema,
         required: [true, "Local guardian information is required"]
     },
-    profileImage: {
+    profileImg: {
         type: String,
         required: [true, "Profile image is required"]
     },

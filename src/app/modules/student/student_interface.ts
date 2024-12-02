@@ -35,9 +35,9 @@ export type TStudent = {
     emergencyContactNo: string;
     bloodGroup?: TBloodGroup;
     presentAddress: string;
-    parmanentAddress: string;
+    permanentAddress: string;
     guardian: TGuardian;
     localGuardian: TLocalGuardian;
-    profileImage: string;
+    profileImg: string;
     isActive: 'active' | 'blocked';
 }
