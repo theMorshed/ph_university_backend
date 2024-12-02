@@ -1,36 +1,35 @@
 import { Request, Response } from "express";
 import { StudentServices } from "./student_service";
-import studentValidationSchema from "./student_validation";
 
-const createStudent = async(req: Request, res: Response) => {
-    try {
-        const {student: studentData} = req.body;
-        const {error, value} = studentValidationSchema.validate(studentData);
-        const result = await StudentServices.createStudentIntoDB(value);
-        // console.log({error}, {value});
-        if (error) {
-            res.status(500).json({
-                success: false,
-                message: "Failed to validate data",
-                error,
-            })
-        }
+// const createStudent = async(req: Request, res: Response) => {
+//     try {
+//         const {student: studentData} = req.body;
+//         const {error, value} = studentValidationSchema.validate(studentData);
+//         const result = await StudentServices.createStudentIntoDB(value);
+//         // console.log({error}, {value});
+//         if (error) {
+//             res.status(500).json({
+//                 success: false,
+//                 message: "Failed to validate data",
+//                 error,
+//             })
+//         }
 
 
-        res.status(200).json({
-            success: true,
-            message: 'Student created successfully',
-            data: result
-        })
-    } catch(error) {
-        res.status(500).json({
-            success: false,
-            message: "Failed to retrieve data",
-            error: error,
-            stack: new Error().stack
-        })
-    }
-}
+//         res.status(200).json({
+//             success: true,
+//             message: 'Student created successfully',
+//             data: result
+//         })
+//     } catch(error) {
+//         res.status(500).json({
+//             success: false,
+//             message: "Failed to retrieve data",
+//             error: error,
+//             stack: new Error().stack
+//         })
+//     }
+// }
 
 const getAllStudents = async(req: Request, res: Response) => {
     try {
@@ -68,7 +67,6 @@ const getSingleStudent = async(req: Request, res: Response) => {
 }
 
 export const StudentControllers = {
-    createStudent,
     getAllStudents,
     getSingleStudent
 }
