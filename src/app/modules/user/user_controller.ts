@@ -5,7 +5,12 @@ const createStudent = async(req: Request, res: Response, next: NextFunction) => 
     try {
         const {password, student: studentData} = req.body;
         const result = await userService.createStudentIntoDB(password, studentData);
-        return result;
+        
+        res.status(200).json({
+            success: true,
+            message: 'Student created successfully',
+            data: result
+        })
     } catch(err) {
         next(err);
     }

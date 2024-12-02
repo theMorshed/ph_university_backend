@@ -81,8 +81,9 @@ const studentSchema = new Schema<TStudent>({
     },
     user: {
         type: Schema.Types.ObjectId,
-        required: [true, "user is required"],
-        ref: 'UserModel'
+        required: [true, "User ID is required"],
+        unique: true,
+        ref: "User",
     },
     name: {
         type: nameSchema,
