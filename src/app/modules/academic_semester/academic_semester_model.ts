@@ -42,4 +42,4 @@ academicSemesterSchema.pre('save', async function(next) {
     next();
 })
 
-export const AcademicSemesterModel = model<TAcademicSemester>("Academic Semester", academicSemesterSchema);
+export const AcademicSemesterModel = model<TAcademicSemester>("AcademicSemester", academicSemesterSchema);
