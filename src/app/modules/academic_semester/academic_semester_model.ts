@@ -31,4 +31,4 @@ const academicSemesterSchema = new Schema<TAcademicSemester>({
     timestamps: true
 })
 
-export const AcademicSemester = model<TAcademicSemester>("Academic Semester", academicSemesterSchema);
+export const AcademicSemesterModel = model<TAcademicSemester>("Academic Semester", academicSemesterSchema);
