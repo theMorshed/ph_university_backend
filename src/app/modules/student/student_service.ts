@@ -6,7 +6,7 @@ const getAllStudentsFromDB = async() => {
 }
 
 const getSingleStudentFromDB = async(id: string) => {
-    const result = await StudentModel.findOne({id});
+    const result = await StudentModel.findById(id);
     return result;
 }
 
