@@ -1,4 +1,4 @@
-import { model, Schema } from "mongoose";
+import { Model, model, Schema } from "mongoose";
 import { TName, TGuardian, TLocalGuardian, TStudent } from "./student_interface";
 import validator from "validator";
 
@@ -156,7 +156,15 @@ const studentSchema = new Schema<TStudent>({
     }
 });
 
+studentSchema.statics.isStudentExists = async function (id: string) {
+    return await this.exists({ id });
+};
 
-export const StudentModel = model<TStudent>('Student', studentSchema);
+export const StudentModel = model<TStudent, StudentModel>('Student', studentSchema);
+
+// Extend the interface for the model to include the static method
+interface StudentModel extends Model<TStudent> {
+    isStudentExists(id: string): Promise<boolean>;
+}
 
 

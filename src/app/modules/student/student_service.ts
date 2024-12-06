@@ -26,6 +26,13 @@ const getSingleStudentFromDB = async(id: string) => {
 }
 
 const deleteStudentFromDB = async (id: string) => {
+    // Check if the student exists
+    const studentExists = await StudentModel.isStudentExists(id);
+
+    if (!studentExists) {
+        throw new AppError(StatusCodes.NOT_FOUND, 'Student does not exists');
+    }
+
     const session = await startSession();
 
     try {
