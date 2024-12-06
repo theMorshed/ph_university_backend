@@ -142,18 +142,21 @@ const studentSchema = new Schema<TStudent>({
         type: Schema.Types.ObjectId,
         ref: 'AcademicSemester'
     },
+    academicDepartment: {
+        type: Schema.Types.ObjectId,
+        ref: 'AcademicDepartment'
+    },
     profileImg: {
         type: String,
         required: [true, "Profile image is required"]
     },
-    isActive: {
-        type: String,
-        enum: {
-            values: ['active', 'blocked'],
-            message: '{VALUE} is not a valid status'
-        },
-        default: 'active',
+    isDeleted: {
+        type: Boolean,
+        default: false
     }
 });
 
+
 export const StudentModel = model<TStudent>('Student', studentSchema);
+
+
