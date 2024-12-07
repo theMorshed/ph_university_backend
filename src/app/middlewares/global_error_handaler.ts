@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { ZodArray, ZodError } from "zod";
+import { ZodError } from "zod";
 import config from "../config";
 
 export const globalErrorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
