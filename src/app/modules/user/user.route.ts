@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { userController } from "./user_controller";
+import { userController } from "./user.controller";
 import validateRequest from "../../middlewares/validateRequest";
-import { createStudentValidationSchema } from "../student/student_validation";
+import { createStudentValidationSchema } from "../student/student.validation";
 
 const userRouter = Router();
 

@@ -1,4 +1,4 @@
-import { StudentServices } from "./student_service";
+import { StudentServices } from "./student.service";
 import sendResponse from "../../utils/sendResponse";
 import { StatusCodes } from "http-status-codes";
 import catchAsync from "../../utils/catchAsync";

@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { startSession } from "mongoose";
 import config from "../../config";
-import { AcademicSemesterModel } from "../academic_semester/academic_semester_model";
-import { TStudent } from "../student/student_interface";
-import { StudentModel } from "../student/student_model";
-import { TUser } from "./user_interface";
-import { userModel } from "./user_model";
-import { generateStudentId } from "./user_utils";
-import AppError from "../../errors/app_error";
+import { AcademicSemesterModel } from "../academicSemester/academicSemester.model";
+import { TStudent } from "../student/student.interface";
+import { StudentModel } from "../student/student.model";
+import { TUser } from "./user.interface";
+import { userModel } from "./user.model";
+import { generateStudentId } from "./user.utils";
+import AppError from "../../errors/appError";
 import { StatusCodes } from "http-status-codes";
 
 const createStudentIntoDB = async(password: string, payload: TStudent) => {

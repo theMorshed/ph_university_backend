@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { startSession } from "mongoose";
-import { StudentModel } from "./student_model"
-import AppError from "../../errors/app_error";
+import { StudentModel } from "./student.model"
+import AppError from "../../errors/appError";
 import { StatusCodes } from "http-status-codes";
-import { userModel } from "../user/user_model";
+import { userModel } from "../user/user.model";
 
 const getAllStudentsFromDB = async() => {
     const result = await StudentModel.find().populate('admissionSemester').populate({

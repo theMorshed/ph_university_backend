@@ -1,5 +1,5 @@
-import { TAcademicFaculty } from "./academic_faculty_interface";
-import { academicFacultyModel } from "./academic_faculty_model";
+import { TAcademicFaculty } from "./academicFaculty.interface";
+import { academicFacultyModel } from "./academicFaculty.model";
 
 const createAcademicFacultyIntoDB = async (payload: TAcademicFaculty) => {
     const result = await academicFacultyModel.create(payload);

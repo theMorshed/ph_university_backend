@@ -1,5 +1,5 @@
 import express from "express";
-import { StudentControllers } from "./student_controller";
+import { StudentControllers } from "./student.controller";
 
 const studentRouter = express.Router();
 studentRouter.get('/', StudentControllers.getAllStudents);

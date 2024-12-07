@@ -1,5 +1,5 @@
 import { Model, model, Schema } from "mongoose";
-import { TName, TGuardian, TLocalGuardian, TStudent } from "./student_interface";
+import { TName, TGuardian, TLocalGuardian, TStudent } from "./student.interface";
 import validator from "validator";
 
 const nameSchema = new Schema<TName>({

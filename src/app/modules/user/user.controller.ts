@@ -1,4 +1,4 @@
-import { userService } from "./user_service";
+import { userService } from "./user.service";
 import { StatusCodes } from "http-status-codes";
 import sendResponse from "../../utils/sendResponse";
 import catchAsync from "../../utils/catchAsync";

@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { StudentRoutes } from "../modules/student/student_router";
-import { userRoutes } from "../modules/user/user_router";
-import { academicSemesterRoutes } from "../modules/academic_semester/academic_semester_router";
-import { academicFacultyRoutes } from "../modules/academic_faculty/academic_faculty_route";
-import { academicDepartmentRoutes } from "../modules/academic_dapartment/academic_department_route";
+import { StudentRoutes } from "../modules/student/student.route";
+import { userRoutes } from "../modules/user/user.route";
+import { academicSemesterRoutes } from "../modules/academicSemester/academicSemester.route";
+import { academicFacultyRoutes } from "../modules/academicFaculty/academicFaculty.route";
+import { academicDepartmentRoutes } from "../modules/academicDepartment/academicDepartment.route";
 
 const router = Router();
 

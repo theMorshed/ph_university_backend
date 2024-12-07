@@ -1,5 +1,5 @@
-import { TAcademicDepartment } from "./academic_department_interface";
-import { academicDepartmentModel } from "./academic_department_model";
+import { TAcademicDepartment } from "./academicDepartment.interface";
+import { academicDepartmentModel } from "./academicDepartment.model";
 
 const createAcademicDepartmentIntoDB = async(payload: TAcademicDepartment) => {
     const result = await academicDepartmentModel.create(payload);

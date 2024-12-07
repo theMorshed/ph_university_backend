@@ -1,7 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
-import { academicFacultyServices } from "./academic_faculty_service";
+import { academicFacultyServices } from "./academicFaculty.service";
 
 const createAcademicFaculty = catchAsync(async(req, res) => {
     
