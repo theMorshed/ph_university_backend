@@ -7,7 +7,7 @@ import { StudentModel } from "../student/student.model";
 import { TUser } from "./user.interface";
 import { userModel } from "./user.model";
 import { generateStudentId } from "./user.utils";
-import AppError from "../../errors/appError";
+import AppError from "../../errors/AppError";
 import { StatusCodes } from "http-status-codes";
 
 const createStudentIntoDB = async(password: string, payload: TStudent) => {

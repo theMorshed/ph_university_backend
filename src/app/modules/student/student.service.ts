@@ -1,11 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { startSession } from "mongoose";
 import { StudentModel } from "./student.model"
-import AppError from "../../errors/appError";
+import AppError from "../../errors/AppError";
 import { StatusCodes } from "http-status-codes";
 import { userModel } from "../user/user.model";
+import QueryBuilder from "../../builder/QueryBuilder";
+import { studentSearchableFields } from "./student.constant";
 
 const getAllStudentsFromDB = async(query: Record<string, unknown>) => {
+    /****************************
     const queryObj = {...query};
     let searchTerm = '';
     if (query?.searchTerm) {
@@ -20,7 +23,7 @@ const getAllStudentsFromDB = async(query: Record<string, unknown>) => {
         }))
     });
 
-    const excludeFields = ['searchTerm', 'sort', 'limit'];
+    const excludeFields = ['searchTerm', 'sort', 'limit', 'page', 'fields'];
     excludeFields.forEach(el => delete queryObj[el]);
 
     const filterQuery = searchQuery
@@ -44,9 +47,43 @@ const getAllStudentsFromDB = async(query: Record<string, unknown>) => {
         limit = query.limit as number;
     }
 
-    const limitQuery = await sortQuery.limit(limit);
+    let page = 1;
+    let skip = 0;
 
-    return limitQuery;
+    if (query.page) {
+        page = query.page as number;
+        skip = (page - 1) * limit;
+    }
+
+    const paginateQuery = sortQuery.skip(skip);
+    const limitQuery = paginateQuery.limit(limit);
+
+    let fields = '-__v';
+    if (query.fields) {
+        fields = (query.fields as string).split(',').join(' ');
+    }
+
+    const fieldQuery = await limitQuery.select(fields);
+
+    return fieldQuery;
+    **********************/
+   const studentQuery = new QueryBuilder(StudentModel.find()
+    .populate('admissionSemester')
+    .populate({
+        path: 'academicDepartment',
+        populate: {
+          path: 'academicFaculty',
+        },
+      }), query)
+   .search(studentSearchableFields)
+   .filter()
+   .sort()
+   .paginate()
+   .fields()
+
+   const result = await studentQuery.modelQuery;
+
+   return result;
 }
 
 const getSingleStudentFromDB = async(id: string) => {
