@@ -156,8 +156,8 @@ const studentSchema = new Schema<TStudent>({
     }
 });
 
-studentSchema.statics.isStudentExists = async function (id: string) {
-    return await this.exists({ id });
+studentSchema.statics.isStudentExists = async function (_id: string) {
+    return await this.exists({ _id });
 };
 
 export const StudentModel = model<TStudent, StudentModel>('Student', studentSchema);
