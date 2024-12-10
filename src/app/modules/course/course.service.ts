@@ -65,21 +65,29 @@ const updateCourseIntoDB = async(id: string, payload: Partial<TCourse>) => {
                 throw new AppError(StatusCodes.BAD_REQUEST, 'Failed to update course');
             }
 
-            const newPrerequisite = prerequisiteCourses.filter(el => el.course && !el.isDeleted);
+            const newPrerequisite = prerequisiteCourses.filter(el => el.course && !el.isDeleted).map(el => ({ course: el.course }));
 
-            const newPrerequisiteCourses = await Course.findByIdAndUpdate(id, 
-                {
-                    $addToSet: {prerequisiteCourses: {$each: newPrerequisite}}
-                },
-                {
-                    new: true,
-                    runValidators: true,
-                    session
-                }
-            )
+            const existingCourse = await Course.findOne({
+                _id: id,
+                "prerequisiteCourses.course": { $in: newPrerequisite.map(n => n.course) },
+            });
 
-            if (!newPrerequisiteCourses) {
-                throw new AppError(StatusCodes.BAD_REQUEST, 'Failed to update course');
+            if (!existingCourse) {
+                const newPrerequisiteCourses = await Course.findByIdAndUpdate(id, 
+                    {
+                        $addToSet: {prerequisiteCourses: {$each: newPrerequisite}}
+                    },
+                    {
+                        new: true,
+                        runValidators: true,
+                        session
+                    }
+                )
+                if (!newPrerequisiteCourses) {
+                    throw new AppError(StatusCodes.BAD_REQUEST, 'Failed to update course');
+                } 
+            } else {
+                throw new AppError(StatusCodes.BAD_REQUEST, 'This course is already exists in dependency');
             }
         }
 
