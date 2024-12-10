@@ -39,7 +39,7 @@ const courseSchema = new Schema<TCourse>({
         type: Boolean,
         default: false
     },
-    prerequisiteCourses: prerequisiteCoursesSchema
+    prerequisiteCourses: [prerequisiteCoursesSchema]
 })
 
 export const Course = model<TCourse>('Course', courseSchema);

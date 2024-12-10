@@ -10,6 +10,7 @@ courseRouter.post('/create-course', validateRequest(courseValidations.createCour
 courseRouter.get('/', courseControllers.getAllCourses);
 courseRouter.get('/:courseId', courseControllers.getSingleCourse);
 
+courseRouter.patch('/:courseId', validateRequest(courseValidations.updateCourseValidationSchema), courseControllers.updateCourse);
 courseRouter.delete('/:courseId', courseControllers.deleteCourse);
 
 export const courseRoutes = courseRouter;
