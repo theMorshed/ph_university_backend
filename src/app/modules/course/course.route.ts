@@ -13,4 +13,7 @@ courseRouter.get('/:courseId', courseControllers.getSingleCourse);
 courseRouter.patch('/:courseId', validateRequest(courseValidations.updateCourseValidationSchema), courseControllers.updateCourse);
 courseRouter.delete('/:courseId', courseControllers.deleteCourse);
 
+courseRouter.put('/:courseId/assign-faculties', validateRequest(courseValidations.facultiesWithCourseValidationSchema), courseControllers.assignFacultiesWithCourse);
+courseRouter.delete('/:courseId/remove-faculties', validateRequest(courseValidations.facultiesWithCourseValidationSchema), courseControllers.removeFacultiesWithCourse);
+
 export const courseRoutes = courseRouter;
