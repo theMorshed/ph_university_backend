@@ -88,7 +88,7 @@ const createFacultyIntoDB = async (password: string, payload: TFaculty) => {
 
         //create a faculty
         if (!newUser.length) {
-        throw new AppError(StatusCodes.BAD_REQUEST, 'Failed to create user');
+            throw new AppError(StatusCodes.BAD_REQUEST, 'Failed to create user');
         }
         // set id , _id as user
         payload.id = newUser[0].id;
@@ -99,7 +99,7 @@ const createFacultyIntoDB = async (password: string, payload: TFaculty) => {
         const newFaculty = await Faculty.create([payload], { session });
 
         if (!newFaculty.length) {
-        throw new AppError(StatusCodes.BAD_REQUEST, 'Failed to create faculty');
+            throw new AppError(StatusCodes.BAD_REQUEST, 'Failed to create faculty');
         }
 
         await session.commitTransaction();
@@ -135,7 +135,7 @@ const createFacultyIntoDB = async (password: string, payload: TFaculty) => {
 
 //         //create a admin
 //         if (!newUser.length) {
-//         throw new AppError(StatusCodes.BAD_REQUEST, 'Failed to create admin');
+//              throw new AppError(StatusCodes.BAD_REQUEST, 'Failed to create admin');
 //         }
 //         // set id , _id as user
 //         payload.id = newUser[0].id;
