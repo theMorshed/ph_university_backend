@@ -8,6 +8,7 @@ const semesterRegistrationRouter = Router();
 semesterRegistrationRouter.post('/create-semester-registration', validateRequest(semesterRegistrationValidations.createSemesterRegistrationValidationSchema), semesterRegistrationControllers.createSemesterRegistration);
 
 semesterRegistrationRouter.get('/', semesterRegistrationControllers.getAllSemesterRegistrations);
-semesterRegistrationRouter.get('/:semesterId', semesterRegistrationControllers.getSingleSemesterRegistrations);
+semesterRegistrationRouter.get('/:id', semesterRegistrationControllers.getSingleSemesterRegistrations);
+semesterRegistrationRouter.patch('/:id', validateRequest(semesterRegistrationValidations.updateSemesterRegistrationValidationSchema), semesterRegistrationControllers.updateSemesterRegistration);
 
 export const semesterRegistrationRoutes = semesterRegistrationRouter;
