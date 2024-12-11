@@ -2,16 +2,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import mongoose, { startSession } from "mongoose";
 import config from "../../config";
-import { AcademicSemesterModel } from "../academicSemester/academicSemester.model";
+import { AcademicSemester } from "../academicSemester/academicSemester.model";
 import { TStudent } from "../student/student.interface";
-import { StudentModel } from "../student/student.model";
+import { Student } from "../student/student.model";
 import { TUser } from "./user.interface";
-import { userModel } from "./user.model";
+import { User } from "./user.model";
 import { generateAdminId, generateFacultyId, generateStudentId } from "./user.utils";
 import AppError from "../../errors/AppError";
 import { StatusCodes } from "http-status-codes";
 import { TFaculty } from "../faculty/faculty.interface";
-import { academicDepartmentModel } from "../academicDepartment/academicDepartment.model";
+import { AcademicDepartment } from "../academicDepartment/academicDepartment.model";
 import { Faculty } from "../faculty/faculty.model";
 import { Admin } from "../admin/admin.model";
 
@@ -21,7 +21,7 @@ const createStudentIntoDB = async(password: string, payload: TStudent) => {
     userData.role = 'student';
 
     // find academicSemester
-    const admissionSemester = await AcademicSemesterModel.findById(payload.admissionSemester);
+    const admissionSemester = await AcademicSemester.findById(payload.admissionSemester);
 
     const session = await startSession();
 
@@ -33,7 +33,7 @@ const createStudentIntoDB = async(password: string, payload: TStudent) => {
         }
 
         // transaction 1
-        const newUser = await userModel.create([userData], {session});
+        const newUser = await User.create([userData], {session});
         if (!newUser.length) {
             throw new AppError(StatusCodes.BAD_REQUEST, 'Failed to create new user');
         }
@@ -41,7 +41,7 @@ const createStudentIntoDB = async(password: string, payload: TStudent) => {
         payload.user = newUser[0]._id;
 
         // transaction 2
-        const newStudent = await StudentModel.create([payload], {session});
+        const newStudent = await Student.create([payload], {session});
         if (!newStudent.length) {
             throw new AppError(StatusCodes.BAD_REQUEST, 'Failed to create new student');
         }
@@ -69,7 +69,7 @@ const createFacultyIntoDB = async (password: string, payload: TFaculty) => {
     userData.role = 'faculty';
 
     // find academic department info
-    const academicDepartment = await academicDepartmentModel.findById(
+    const academicDepartment = await AcademicDepartment.findById(
         payload.academicDepartment,
     );
 
@@ -85,7 +85,7 @@ const createFacultyIntoDB = async (password: string, payload: TFaculty) => {
         userData.id = await generateFacultyId();
 
         // create a user (transaction-1)
-        const newUser = await userModel.create([userData], { session }); // array
+        const newUser = await User.create([userData], { session }); // array
 
         //create a faculty
         if (!newUser.length) {
@@ -132,7 +132,7 @@ const createAdminIntoDB = async (password: string, payload: TFaculty) => {
         userData.id = await generateAdminId();
 
         // create a user (transaction-1)
-        const newUser = await userModel.create([userData], { session }); 
+        const newUser = await User.create([userData], { session }); 
 
         //create a admin
         if (!newUser.length) {

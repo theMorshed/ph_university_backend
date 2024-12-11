@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { startSession } from "mongoose";
-import { StudentModel } from "./student.model"
+import { Student } from "./student.model"
 import AppError from "../../errors/AppError";
 import { StatusCodes } from "http-status-codes";
-import { userModel } from "../user/user.model";
+import { User } from "../user/user.model";
 import QueryBuilder from "../../builder/QueryBuilder";
 import { studentSearchableFields } from "./student.constant";
 import { TStudent } from "./student.interface";
@@ -68,7 +68,7 @@ const getAllStudentsFromDB = async(query: Record<string, unknown>) => {
 
     return fieldQuery;
     **********************/
-   const studentQuery = new QueryBuilder(StudentModel.find()
+   const studentQuery = new QueryBuilder(Student.find()
     .populate('admissionSemester')
     .populate({
         path: 'academicDepartment',
@@ -88,7 +88,7 @@ const getAllStudentsFromDB = async(query: Record<string, unknown>) => {
 }
 
 const getSingleStudentFromDB = async(id: string) => {
-    const result = await StudentModel.findById(id).populate({
+    const result = await Student.findById(id).populate({
         path: 'academicDepartment',
         populate: {
             path: 'academicFaculty'
@@ -133,7 +133,7 @@ const updateStudentIntoDB = async (id: string, payload: Partial<TStudent>) => {
         }
     }
 
-    const result = await StudentModel.findByIdAndUpdate(id, modifiedUpdatedData, {
+    const result = await Student.findByIdAndUpdate(id, modifiedUpdatedData, {
         new: true,
         runValidators: true,
     });
@@ -142,7 +142,7 @@ const updateStudentIntoDB = async (id: string, payload: Partial<TStudent>) => {
 
 const deleteStudentFromDB = async (id: string) => {
     // Check if the student exists
-    const studentExists = await StudentModel.isStudentExists(id);
+    const studentExists = await Student.isStudentExists(id);
 
     if (!studentExists) {
         throw new AppError(StatusCodes.NOT_FOUND, 'Student does not exists');
@@ -153,7 +153,7 @@ const deleteStudentFromDB = async (id: string) => {
     try {
         session.startTransaction();
 
-        const deletedStudent = await StudentModel.findByIdAndUpdate(
+        const deletedStudent = await Student.findByIdAndUpdate(
             id,
             { isDeleted: true },
             { new: true, session },
@@ -164,7 +164,7 @@ const deleteStudentFromDB = async (id: string) => {
         }
 
         const userId = deletedStudent.user;
-        const deletedUser = await userModel.findByIdAndUpdate(
+        const deletedUser = await User.findByIdAndUpdate(
             userId,
             { isDeleted: true },
             { new: true, session },

@@ -160,7 +160,7 @@ studentSchema.statics.isStudentExists = async function (_id: string) {
     return await this.exists({ _id });
 };
 
-export const StudentModel = model<TStudent, StudentModel>('Student', studentSchema);
+export const Student = model<TStudent, StudentModel>('Student', studentSchema);
 
 // Extend the interface for the model to include the static method
 interface StudentModel extends Model<TStudent> {

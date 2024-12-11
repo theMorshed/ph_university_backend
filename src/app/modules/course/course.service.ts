@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import QueryBuilder from "../../builder/QueryBuilder";
 import { courseSearchableFields } from "./course.constant";
 import { TCourse, TCourseFaculty } from "./course.interface";
-import { Course, courseFaculty } from "./course.model"
+import { Course, CourseFaculty } from "./course.model"
 import AppError from "../../errors/AppError";
 import { StatusCodes } from "http-status-codes";
 
@@ -110,7 +110,7 @@ const deleteCourseFromDB = async(id: string) => {
 }
 
 const assignFacultiesWithCourseIntoDB = async(id: string, payload: Partial<TCourseFaculty>) => {
-    const result = await courseFaculty.findByIdAndUpdate(
+    const result = await CourseFaculty.findByIdAndUpdate(
         id,
         {
             course: id,
@@ -126,7 +126,7 @@ const assignFacultiesWithCourseIntoDB = async(id: string, payload: Partial<TCour
 }
 
 const removeFacultiesFromCourseFromDB = async(id: string, payload: Partial<TCourseFaculty>) => {
-    const result = await courseFaculty.findByIdAndUpdate(
+    const result = await CourseFaculty.findByIdAndUpdate(
         id,
         {
             $pull: {faculties: {$in: payload}}

@@ -6,7 +6,7 @@ import { FacultySearchableFields } from './faculty.constant';
 import { TFaculty } from './faculty.interface';
 import { Faculty } from './faculty.model';
 import { StatusCodes } from 'http-status-codes';
-import { userModel } from '../user/user.model';
+import { User } from '../user/user.model';
 
 const getAllFacultiesFromDB = async (query: Record<string, unknown>) => {
     const facultyQuery = new QueryBuilder(
@@ -68,7 +68,7 @@ const deleteFacultyFromDB = async (id: string) => {
         // get user _id from deletedFaculty
         const userId = deletedFaculty.user;
 
-        const deletedUser = await userModel.findByIdAndUpdate(
+        const deletedUser = await User.findByIdAndUpdate(
         userId,
         { isDeleted: true },
         { new: true, session },

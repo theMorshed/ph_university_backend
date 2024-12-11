@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import QueryBuilder from '../../builder/QueryBuilder';
 import AppError from '../../errors/AppError';
 import { StatusCodes } from 'http-status-codes';
-import { userModel } from '../user/user.model';
+import { User } from '../user/user.model';
 import { Admin } from './admin.model';
 import { AdminSearchableFields } from './admin.contant';
 import { TAdmin } from './admin.interface';
@@ -68,7 +68,7 @@ const deleteAdminFromDB = async (id: string) => {
         // get user _id from deletedAdmin
         const userId = deleteAdmin.user;
 
-        const deletedUser = await userModel.findByIdAndUpdate(
+        const deletedUser = await User.findByIdAndUpdate(
         userId,
         { isDeleted: true },
         { new: true, session },

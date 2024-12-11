@@ -1,6 +1,6 @@
 import { AcademicSemesterNameCodeMapper } from "./academicSemester.constant";
 import { TAcademicSemester } from "./academicSemester.interface";
-import { AcademicSemesterModel } from "./academicSemester.model";
+import { AcademicSemester } from "./academicSemester.model";
 
 const createAcademicSemesterIntoDB = async(payload: TAcademicSemester) => {
 
@@ -8,17 +8,17 @@ const createAcademicSemesterIntoDB = async(payload: TAcademicSemester) => {
         throw new Error("Invalid semester code given!!");
     }
 
-    const result = await AcademicSemesterModel.create(payload);
+    const result = await AcademicSemester.create(payload);
     return result;
 }
 
 const getAllAcademicSemesterFromDB = async() => {
-    const result = await AcademicSemesterModel.find({});
+    const result = await AcademicSemester.find({});
     return result;
 }
 
 const getSinlgeAcademicSemesterFromDB = async(semesterId: string) => {
-    const result = await AcademicSemesterModel.find({_id: semesterId});
+    const result = await AcademicSemester.find({_id: semesterId});
     return result;
 }
 
@@ -29,7 +29,7 @@ const updateSinlgeAcademicSemesterIntoDB = async(semesterId: string, payload: Pa
         throw new Error("Invalid semester code given!!");
     }
 
-    const result = await AcademicSemesterModel.findByIdAndUpdate(semesterId, payload, {new: true});
+    const result = await AcademicSemester.findByIdAndUpdate(semesterId, payload, {new: true});
     return result;
 }
 

@@ -1,6 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 import AppError from "../../errors/AppError";
-import { AcademicSemesterModel } from "../academicSemester/academicSemester.model";
+import { AcademicSemester } from "../academicSemester/academicSemester.model";
 import { TSemesterRegistration } from "./semesterRegistration.interface";
 import { SemesterRegistration } from "./semesterRegistration.model";
 import QueryBuilder from "../../builder/QueryBuilder";
@@ -20,7 +20,7 @@ const createSemesterRegistrationIntoDB = async(payload: TSemesterRegistration) =
         throw new AppError(StatusCodes.BAD_REQUEST, `There is already an ${isThereAnyUpcomingOrOngoingSemester.status} registered semester!!`);
     }
 
-    const isAcademicSemesterExists = await AcademicSemesterModel.findById(academicSemester);
+    const isAcademicSemesterExists = await AcademicSemester.findById(academicSemester);
     if (!isAcademicSemesterExists) {
         throw new AppError(StatusCodes.NOT_FOUND, 'Academic semester is not exists');
     }
