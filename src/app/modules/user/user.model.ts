@@ -48,4 +48,18 @@ userSchema.statics.isUserExistsByCustomId = async function (id: string) {
     return await User.findOne({ id });
 }
 
+userSchema.statics.isPasswordMatched = async function(userPassword: string, hashedPassword: string) {
+    return await bcrypt.compare(userPassword, hashedPassword);
+}
+
+userSchema.statics.isDeleted = async function (id: string): Promise<boolean | undefined> {
+    const isDel = await User.findOne({ id }, {_id: 0, isDeleted: 1});
+    return isDel?.isDeleted;
+}
+
+userSchema.statics.status = async function (id: string): Promise<"in-progress" | "blocked" | undefined> {
+    const ustatus = await User.findOne({ id }, {_id: 0, status: 1});
+    return ustatus?.status;
+}
+
 export const User = model<TUser, UserModel>('User', userSchema);
