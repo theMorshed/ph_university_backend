@@ -4,11 +4,22 @@ import { User } from "../user/user.model";
 import { TLoginUser } from "./auth.interface";
 
 const loginUserService = async (payload: TLoginUser) => {
-    const result = await User.findOne({id: payload.id});
-    if (!result) {
-        throw new AppError(StatusCodes.FORBIDDEN, 'user does not exists');
+    const user = await User.isUserExistsByCustomId(payload.id);
+    if (!user) {
+        throw new AppError(StatusCodes.NOT_FOUND, 'User is not found');
     }
-    return result;
+
+    const isDeletedUser = user?.isDeleted;
+    if (isDeletedUser) {
+        throw new AppError(StatusCodes.FORBIDDEN, 'This user is deleted.');
+    }
+
+    const userStatus = user?.status;
+    if (userStatus === 'blocked') {
+        throw new AppError(StatusCodes.FORBIDDEN, 'This user is blocked.');
+    }
+
+    return {};
 }
 
 export const authServices = {
