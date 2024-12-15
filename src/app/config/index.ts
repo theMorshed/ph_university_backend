@@ -1,13 +1,37 @@
+/*
+ * Importing necessary modules:
+ * - `dotenv`: Loads environment variables from a .env file into `process.env`.
+ * - `path`: Provides utilities for working with file and directory paths.
+ */
 import dotenv from 'dotenv';
 import path from 'path';
 
+/*
+ * Configuring dotenv to load environment variables from the `.env` file in the current working directory.
+ * This allows access to sensitive information like API keys, database URLs, etc.
+ */
 dotenv.config({ path: path.join(process.cwd(), '.env') });
 
+/*
+ * Exporting an object containing essential environment variables for the application.
+ * These variables are used throughout the app for configuration.
+ */
 export default {
+  // Application environment (e.g., 'development', 'production').
   NODE_ENV: process.env.NODE_ENV,
+
+  // Port number the server will listen on.
   port: process.env.PORT,
+
+  // Database connection URL.
   database_url: process.env.DATABASE_URL,
+
+  // Default password used across the application.
   default_password: process.env.DEFAULT_PASSWORD,
+
+  // Bcrypt salt rounds for secure password hashing.
   bcrypt_salt_rounds: process.env.BCRYPT_SALT_ROUNDS,
+
+  // Secret key for signing JWT access tokens.
   jwt_access_secret: process.env.JWT_ACCESS_SECRET
 };
