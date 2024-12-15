@@ -1,16 +1,61 @@
+/*
+ * Importing necessary modules and components:
+ * - `Router`: From Express, used to create and manage API routes.
+ * - `academicFacultyControllers`: Controller methods for academic faculty logic.
+ * - `validateRequest`: Middleware for validating incoming requests.
+ * - `academicFacultyValidations`: Validation schemas for academic faculty routes.
+ */
 import { Router } from "express";
 import { academicFacultyControllers } from "./academicFaculty.controller";
 import validateRequest from "../../middlewares/validateRequest";
 import { academicFacultyValidations } from "./academicFaculty.validation";
 
+// Initializing the router for academic faculty routes
 const academicFacultyRouter = Router();
 
-academicFacultyRouter.post('/create-academic-faculty', validateRequest(academicFacultyValidations.createAcademicFacultyValidationSchema), academicFacultyControllers.createAcademicFaculty);
+/**
+ * Route: POST /create-academic-faculty
+ * Purpose: Create a new academic faculty.
+ * Middleware: 
+ *   - validateRequest: Validates the request body against the `createAcademicFacultyValidationSchema`.
+ * Controller: `createAcademicFaculty` - Handles the creation logic.
+ */
+academicFacultyRouter.post(
+  '/create-academic-faculty',
+  validateRequest(academicFacultyValidations.createAcademicFacultyValidationSchema),
+  academicFacultyControllers.createAcademicFaculty
+);
 
+/**
+ * Route: GET /
+ * Purpose: Retrieve all academic faculties.
+ * Controller: `getAllAcademicFaculties` - Fetches and returns a list of all faculties.
+ */
 academicFacultyRouter.get('/', academicFacultyControllers.getAllAcademicFaculties);
 
+/**
+ * Route: GET /:facultyId
+ * Purpose: Retrieve a single academic faculty by its ID.
+ * Params:
+ *   - facultyId: The unique identifier of the academic faculty.
+ * Controller: `getSingleAcademicFaculty` - Fetches and returns the requested faculty.
+ */
 academicFacultyRouter.get('/:facultyId', academicFacultyControllers.getSingleAcademicFaculty);
 
-academicFacultyRouter.patch('/:facultyId', validateRequest(academicFacultyValidations.updateAcademicFacultyValidationSchema), academicFacultyControllers.updateAcademicFaculty);
+/**
+ * Route: PATCH /:facultyId
+ * Purpose: Update an existing academic faculty by its ID.
+ * Middleware: 
+ *   - validateRequest: Validates the request body against the `updateAcademicFacultyValidationSchema`.
+ * Params:
+ *   - facultyId: The unique identifier of the academic faculty.
+ * Controller: `updateAcademicFaculty` - Handles the update logic.
+ */
+academicFacultyRouter.patch(
+  '/:facultyId',
+  validateRequest(academicFacultyValidations.updateAcademicFacultyValidationSchema),
+  academicFacultyControllers.updateAcademicFaculty
+);
 
+// Exporting the router for use in the main application file
 export const academicFacultyRoutes = academicFacultyRouter;

@@ -1,8 +1,15 @@
-// Importing necessary modules
-import { Router } from "express"; // For creating and managing routes.
-import { academicDepartmentControllers } from "./academicDepartment.controller"; // Controller methods for handling academic department logic.
-import validateRequest from "../../middlewares/validateRequest"; // Middleware to validate incoming requests.
-import { AcademicDepartmentValidations } from "./academicDepartment.validation"; // Validation schemas for academic department routes.
+/*
+ * Importing necessary modules and components:
+ * - `Router`: From Express, used to create and manage API routes.
+ * - `academicDepartmentControllers`: Controller methods for academic department logic.
+ * - `validateRequest`: Middleware for validating incoming requests.
+ * - `AcademicDepartmentValidations`: Validation schemas for academic department routes.
+ */
+import { Router } from "express";
+import { academicDepartmentControllers } from "./academicDepartment.controller";
+import validateRequest from "../../middlewares/validateRequest";
+import { AcademicDepartmentValidations } from "./academicDepartment.validation";
+
 
 // Initializing the router for academic department routes
 const academicDepartmentRouter = Router();
