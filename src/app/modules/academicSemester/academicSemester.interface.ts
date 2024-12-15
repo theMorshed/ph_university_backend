@@ -20,4 +20,3 @@ export type TAcademicSemester = {
 
 // Defining a type for a mapper that maps semester names to codes.
 export type TAcademicSemesterNameCodeMapper = Record<string, string>;
-

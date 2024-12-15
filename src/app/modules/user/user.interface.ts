@@ -5,6 +5,7 @@ export type TUser = {
     id: string;
     password: string;
     needsPasswordChange: boolean;
+    passwordChangedAt?: Date;
     role: 'student' | 'faculty' | 'admin';
     status: 'in-progress' | 'blocked';
     isDeleted: boolean;
