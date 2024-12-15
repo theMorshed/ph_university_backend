@@ -46,7 +46,7 @@ userSchema.post('save', function(doc, next) {
 })
 
 userSchema.statics.isUserExistsByCustomId = async function (id: string) {
-    return await User.findOne({ id });
+    return await User.findOne({ id }).select('+password');
 }
 
 userSchema.statics.isPasswordMatched = async function(userPassword: string, hashedPassword: string) {
@@ -59,7 +59,7 @@ userSchema.statics.isDeleted = async function (id: string): Promise<boolean | un
 }
 
 userSchema.statics.status = async function (id: string): Promise<"in-progress" | "blocked" | undefined> {
-    const ustatus = await User.findOne({ id }, {_id: 0, status: 1});
+    const ustatus = await User.findOne({ id }).select('status');
     return ustatus?.status;
 }
 

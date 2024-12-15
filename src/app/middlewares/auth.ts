@@ -19,7 +19,7 @@ const auth = (...requiredRoles: TUserRole[]) => {
             }
             req.user = decoded as JwtPayload;
 
-            const role = (decoded as JwtPayload).role;
+            const role = req.user.role;
             if (requiredRoles && !requiredRoles.includes(role)) {
                 throw new AppError(StatusCodes.UNAUTHORIZED, 'You are not allowed to doing such kind of task..');
             }
