@@ -18,7 +18,7 @@ import { academicFacultyServices } from "./academicFaculty.service";
  */
 const createAcademicFaculty = catchAsync(async (req, res) => {
     const result = await academicFacultyServices.createAcademicFacultyIntoDB(req.body);
-
+    
     sendResponse(res, {
         statusCode: StatusCodes.OK,
         success: true,
@@ -35,7 +35,7 @@ const createAcademicFaculty = catchAsync(async (req, res) => {
  */
 const getAllAcademicFaculties = catchAsync(async (req, res) => {
     const result = await academicFacultyServices.getAllAcademicFacultiesFromDB();
-
+    
     sendResponse(res, {
         statusCode: StatusCodes.OK,
         success: true,
