@@ -66,4 +66,9 @@ userSchema.statics.status = async function (id: string): Promise<"in-progress" |
     return ustatus?.status;
 }
 
+userSchema.statics.isJWTIssuedBeforePasswordChange = function(passwordChangedAt: Date, jwtIssuedAt: number) {
+    const passwordChangedTime = new Date(passwordChangedAt).getTime() / 1000;
+    return passwordChangedTime > jwtIssuedAt;
+}
+
 export const User = model<TUser, UserModel>('User', userSchema);
