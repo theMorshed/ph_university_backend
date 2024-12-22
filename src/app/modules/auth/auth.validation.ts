@@ -26,9 +26,17 @@ const forgetPasswordValidationSchema = z.object({
     })
 })
 
+const resetPasswordValidationSchema = z.object({
+    body: z.object({
+        id: z.string({ required_error: 'ID must be given' }),
+        newPassword: z.string({ required_error: 'Password must be given' })
+    })
+})
+
 export const authValidations = {
     loginValidationSchema,
     changePasswordValidationSchema,
     refreshTokenValidationSchema,
-    forgetPasswordValidationSchema
+    forgetPasswordValidationSchema,
+    resetPasswordValidationSchema
 }
