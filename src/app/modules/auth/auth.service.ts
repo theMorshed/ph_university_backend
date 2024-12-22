@@ -7,6 +7,7 @@ import config from "../../config";
 import bcrypt from 'bcrypt';
 import { createToken } from "./auth.utils";
 import jwt from 'jsonwebtoken';
+import { sendMail } from "../../utils/sendMails";
 
 const loginUser = async (payload: TLoginUser) => {
     const user = await User.isUserExistsByCustomId(payload.id);
@@ -140,7 +141,8 @@ const forgetPasswordService = async(userId: string) => {
         '10m',
     );
 
-    console.log(`http://localhost:3000/api/auth?user_id=${user.id}&token=${accessToken}`);
+    const resetLink = `${config.reset_password_ui_link}?id=${user.id}&token=${accessToken}`;
+    sendMail(user.email, resetLink);
 }
 
 export const authServices = {
