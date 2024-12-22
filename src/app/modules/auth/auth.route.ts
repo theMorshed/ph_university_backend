@@ -5,12 +5,14 @@ import { authControllers } from "./auth.controller";
 import auth from "../../middlewares/auth";
 import { USER_ROLE } from "../user/user.constant";
 
-const authRouter = Router();
+const router = Router();
 
-authRouter.post('/login', validateRequest(authValidations.loginValidationSchema), authControllers.loginUser);
+router.post('/login', validateRequest(authValidations.loginValidationSchema), authControllers.loginUser);
 
-authRouter.post('/change-password', auth(USER_ROLE.admin, USER_ROLE.faculty, USER_ROLE.student), validateRequest(authValidations.changePasswordValidationSchema), authControllers.changePassword);
+router.post('/change-password', auth(USER_ROLE.admin, USER_ROLE.faculty, USER_ROLE.student), validateRequest(authValidations.changePasswordValidationSchema), authControllers.changePassword);
 
-authRouter.post('/refresh-token', validateRequest(authValidations.refreshTokenValidationSchema), authControllers.refreshToken);
+router.post('/refresh-token', validateRequest(authValidations.refreshTokenValidationSchema), authControllers.refreshToken);
 
-export const authRoutes = authRouter;
+router.post('/forget-password', validateRequest(authValidations.forgetPasswordValidationSchema), authControllers.forgetPassword);
+
+export const authRoutes = router;
