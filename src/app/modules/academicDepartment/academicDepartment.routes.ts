@@ -12,7 +12,7 @@ import { AcademicDepartmentValidations } from "./academicDepartment.validation";
 
 
 // Initializing the router for academic department routes
-const academicDepartmentRouter = Router();
+const router = Router();
 
 /**
  * Route: POST /create-academic-department
@@ -21,7 +21,7 @@ const academicDepartmentRouter = Router();
  *   - validateRequest: Validates the request body against the `createAcademicDepartmentValidationSchema`.
  * Controller: `createAcademicDepartment` - Handles the creation logic.
  */
-academicDepartmentRouter.post(
+router.post(
   '/create-academic-department',
   validateRequest(AcademicDepartmentValidations.createAcademicDepartmentValidationSchema),
   academicDepartmentControllers.createAcademicDepartment
@@ -32,7 +32,7 @@ academicDepartmentRouter.post(
  * Purpose: Retrieve all academic departments.
  * Controller: `getAllAcademicDepartments` - Fetches and returns a list of all departments.
  */
-academicDepartmentRouter.get('/', academicDepartmentControllers.getAllAcademicDepartments);
+router.get('/', academicDepartmentControllers.getAllAcademicDepartments);
 
 /**
  * Route: GET /:departmentId
@@ -41,7 +41,7 @@ academicDepartmentRouter.get('/', academicDepartmentControllers.getAllAcademicDe
  *   - departmentId: The unique identifier of the academic department.
  * Controller: `getSingleAcademicDepartment` - Fetches and returns the requested department.
  */
-academicDepartmentRouter.get('/:departmentId', academicDepartmentControllers.getSingleAcademicDepartment);
+router.get('/:departmentId', academicDepartmentControllers.getSingleAcademicDepartment);
 
 /**
  * Route: PATCH /:departmentId
@@ -52,11 +52,11 @@ academicDepartmentRouter.get('/:departmentId', academicDepartmentControllers.get
  *   - departmentId: The unique identifier of the academic department.
  * Controller: `updateAcademicDepartment` - Handles the update logic.
  */
-academicDepartmentRouter.patch(
+router.patch(
   '/:departmentId',
   validateRequest(AcademicDepartmentValidations.updateAcademicDepartmentValidationSchema),
   academicDepartmentControllers.updateAcademicDepartment
 );
 
 // Exporting the router for use in the main application file
-export const academicDepartmentRoutes = academicDepartmentRouter;
+export const academicDepartmentRoutes = router;

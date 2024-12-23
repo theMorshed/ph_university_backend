@@ -11,7 +11,7 @@ import validateRequest from "../../middlewares/validateRequest";
 import { academicFacultyValidations } from "./academicFaculty.validation";
 
 // Initializing the router for academic faculty routes
-const academicFacultyRouter = Router();
+const router = Router();
 
 /**
  * Route: POST /create-academic-faculty
@@ -20,7 +20,7 @@ const academicFacultyRouter = Router();
  *   - validateRequest: Validates the request body against the `createAcademicFacultyValidationSchema`.
  * Controller: `createAcademicFaculty` - Handles the creation logic.
  */
-academicFacultyRouter.post(
+router.post(
   '/create-academic-faculty',
   validateRequest(academicFacultyValidations.createAcademicFacultyValidationSchema),
   academicFacultyControllers.createAcademicFaculty
@@ -31,7 +31,7 @@ academicFacultyRouter.post(
  * Purpose: Retrieve all academic faculties.
  * Controller: `getAllAcademicFaculties` - Fetches and returns a list of all faculties.
  */
-academicFacultyRouter.get('/', academicFacultyControllers.getAllAcademicFaculties);
+router.get('/', academicFacultyControllers.getAllAcademicFaculties);
 
 /**
  * Route: GET /:facultyId
@@ -40,7 +40,7 @@ academicFacultyRouter.get('/', academicFacultyControllers.getAllAcademicFacultie
  *   - facultyId: The unique identifier of the academic faculty.
  * Controller: `getSingleAcademicFaculty` - Fetches and returns the requested faculty.
  */
-academicFacultyRouter.get('/:facultyId', academicFacultyControllers.getSingleAcademicFaculty);
+router.get('/:facultyId', academicFacultyControllers.getSingleAcademicFaculty);
 
 /**
  * Route: PATCH /:facultyId
@@ -51,11 +51,11 @@ academicFacultyRouter.get('/:facultyId', academicFacultyControllers.getSingleAca
  *   - facultyId: The unique identifier of the academic faculty.
  * Controller: `updateAcademicFaculty` - Handles the update logic.
  */
-academicFacultyRouter.patch(
+router.patch(
   '/:facultyId',
   validateRequest(academicFacultyValidations.updateAcademicFacultyValidationSchema),
   academicFacultyControllers.updateAcademicFaculty
 );
 
 // Exporting the router for use in the main application file
-export const academicFacultyRoutes = academicFacultyRouter;
+export const academicFacultyRoutes = router;

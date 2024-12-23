@@ -3,18 +3,18 @@ import validateRequest from '../../middlewares/validateRequest';
 import { adminControllers } from './admin.controller';
 import { updateAdminValidationSchema } from './admin.validation';
 
-const adminRouter = express.Router();
+const router = express.Router();
 
-adminRouter.get('/', adminControllers.getAllAdmins);
-adminRouter.get('/:id', adminControllers.getSingleAdmin);
+router.get('/', adminControllers.getAllAdmins);
+router.get('/:id', adminControllers.getSingleAdmin);
 
-adminRouter.patch(
+router.patch(
     '/:id',
     validateRequest(updateAdminValidationSchema),
     adminControllers.updateAdmin,
 );
 
-adminRouter.delete('/:id', adminControllers.deleteAdmin);
+router.delete('/:id', adminControllers.deleteAdmin);
 
 
-export const adminRoutes = adminRouter;
+export const adminRoutes = router;

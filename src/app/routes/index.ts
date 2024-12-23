@@ -1,15 +1,15 @@
 import { Router } from "express";
-import { StudentRoutes } from "../modules/student/student.route";
-import { userRoutes } from "../modules/user/user.route";
-import { academicSemesterRoutes } from "../modules/academicSemester/academicSemester.route";
-import { academicFacultyRoutes } from "../modules/academicFaculty/academicFaculty.route";
-import { academicDepartmentRoutes } from "../modules/academicDepartment/academicDepartment.route";
-import { courseRoutes } from "../modules/course/course.route";
-import { facultyRoutes } from "../modules/faculty/faculty.route";
-import { semesterRegistrationRoutes } from "../modules/semesterRegistration/semesterRegistration.route";
-import { adminRoutes } from "../modules/admin/admin.route";
-import { offeredCourseRoutes } from "../modules/offeredCourse/offeredCourse.route";
-import { authRoutes } from "../modules/auth/auth.route";
+import { StudentRoutes } from "../modules/student/student.routes";
+import { userRoutes } from "../modules/user/user.routes";
+import { academicSemesterRoutes } from "../modules/academicSemester/academicSemester.routes";
+import { academicFacultyRoutes } from "../modules/academicFaculty/academicFaculty.routes";
+import { academicDepartmentRoutes } from "../modules/academicDepartment/academicDepartment.routes";
+import { courseRoutes } from "../modules/course/course.routes";
+import { facultyRoutes } from "../modules/faculty/faculty.routes";
+import { semesterRegistrationRoutes } from "../modules/semesterRegistration/semesterRegistration.routes";
+import { adminRoutes } from "../modules/admin/admin.routes";
+import { offeredCourseRoutes } from "../modules/offeredCourse/offeredCourse.routes";
+import { authRoutes } from "../modules/auth/auth.routes";
 
 const router = Router();
 
