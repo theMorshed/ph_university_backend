@@ -41,8 +41,35 @@ const createAdmin = catchAsync(async (req, res) => {
     });
 });
 
+const getMe = catchAsync(async (req, res) => {
+    const { userId, role } = req.user;
+
+    const result = await userServices.getMeService(userId, role);
+
+    sendResponse(res, {
+        statusCode: StatusCodes.OK,
+        success: true,
+        message: 'User get succesfully',
+        data: result,
+    });
+});
+
+const changeStatus = catchAsync(async (req, res) => {
+    const id = req.params.id;
+    const result = await userServices.changeStatusService(id, req.body);
+
+    sendResponse(res, {
+        statusCode: StatusCodes.OK,
+        success: true,
+        message: 'User status change succesfully',
+        data: result,
+    });
+});
+
 export const userController = {
     createStudent,
     createFaculty,
     createAdmin,
+    getMe,
+    changeStatus
 }
