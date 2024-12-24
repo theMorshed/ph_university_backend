@@ -27,6 +27,10 @@ const createStudentIntoDB = async(file: any, password: string, payload: TStudent
     // find academicSemester
     const admissionSemester = await AcademicSemester.findById(payload.admissionSemester);
 
+    if (!admissionSemester) {
+        throw new AppError(StatusCodes.NOT_FOUND, 'Admission semester not found');
+    }
+
     const session = await startSession();
 
     try {
@@ -34,7 +38,7 @@ const createStudentIntoDB = async(file: any, password: string, payload: TStudent
         
         if (admissionSemester) {
             userData.id = await generateStudentId(admissionSemester);
-        }
+        }       
 
         const imageName = `${userData?.id}${payload?.name?.firstName}`;
         const path = file?.path;
@@ -43,13 +47,14 @@ const createStudentIntoDB = async(file: any, password: string, payload: TStudent
 
         // transaction 1
         const newUser = await User.create([userData], {session});
+        
         if (!newUser.length) {
             throw new AppError(StatusCodes.BAD_REQUEST, 'Failed to create new user');
         }
         payload.id = newUser[0].id;
         payload.user = newUser[0]._id;
         payload.profileImg = cloudinaryImageData?.secure_url as string;
-
+        
         // transaction 2
         const newStudent = await Student.create([payload], {session});
         if (!newStudent.length) {
