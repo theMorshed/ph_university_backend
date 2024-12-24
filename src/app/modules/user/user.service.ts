@@ -14,8 +14,9 @@ import { TFaculty } from "../faculty/faculty.interface";
 import { AcademicDepartment } from "../academicDepartment/academicDepartment.model";
 import { Faculty } from "../faculty/faculty.model";
 import { Admin } from "../admin/admin.model";
+import { sendImageToCloudinary } from "../../utils/sendImageToCloudinary";
 
-const createStudentIntoDB = async(password: string, payload: TStudent) => {
+const createStudentIntoDB = async(file: any, password: string, payload: TStudent) => {
     const userData: Partial<TUser> = {};
     userData.password = password || (config.default_password) as string;
     // set student role
@@ -35,6 +36,11 @@ const createStudentIntoDB = async(password: string, payload: TStudent) => {
             userData.id = await generateStudentId(admissionSemester);
         }
 
+        const imageName = `${userData?.id}${payload?.name?.firstName}`;
+        const path = file?.path;
+        // sent image to cloudinary
+        const cloudinaryImageData = await sendImageToCloudinary(imageName, path);
+
         // transaction 1
         const newUser = await User.create([userData], {session});
         if (!newUser.length) {
@@ -42,6 +48,7 @@ const createStudentIntoDB = async(password: string, payload: TStudent) => {
         }
         payload.id = newUser[0].id;
         payload.user = newUser[0]._id;
+        payload.profileImg = cloudinaryImageData?.secure_url as string;
 
         // transaction 2
         const newStudent = await Student.create([payload], {session});

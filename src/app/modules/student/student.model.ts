@@ -147,8 +147,7 @@ const studentSchema = new Schema<TStudent>({
         ref: 'AcademicDepartment'
     },
     profileImg: {
-        type: String,
-        required: [true, "Profile image is required"]
+        type: String
     },
     isDeleted: {
         type: Boolean,
