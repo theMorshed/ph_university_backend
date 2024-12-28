@@ -7,7 +7,7 @@ export type TEnrolledCourseMarks = {
     midterm: number;
     classTest2: number;
     finalTerm: number;
-}
+};
 
 export type TEnrolledCourse = {
     semesterRegistration: Types.ObjectId;
@@ -23,4 +23,4 @@ export type TEnrolledCourse = {
     grade: TGrade;
     gradePoint: number;
     isCompleted: boolean;
-}
+};
