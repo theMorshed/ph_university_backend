@@ -58,8 +58,6 @@ const changeStatus = catchAsync(async (req, res) => {
     const id = req.params.id;
     const result = await userServices.changeStatusService(id, req.body);
 
-    console.log(req.file);
-
     sendResponse(res, {
         statusCode: StatusCodes.OK,
         success: true,
