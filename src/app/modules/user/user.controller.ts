@@ -18,7 +18,7 @@ const createStudent = catchAsync(async(req, res) => {
 const createFaculty = catchAsync(async (req, res) => {
     const { password, faculty: facultyData } = req.body;
 
-    const result = await userServices.createFacultyIntoDB(password, facultyData);
+    const result = await userServices.createFacultyIntoDB(req.file, password, facultyData);
 
     sendResponse(res, {
         statusCode: StatusCodes.OK,
@@ -31,7 +31,7 @@ const createFaculty = catchAsync(async (req, res) => {
 const createAdmin = catchAsync(async (req, res) => {
     const { password, admin: adminData } = req.body;
 
-    const result = await userServices.createAdminIntoDB(password, adminData);
+    const result = await userServices.createAdminIntoDB(req.file, password, adminData);
 
     sendResponse(res, {
         statusCode: StatusCodes.OK,

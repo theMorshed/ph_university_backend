@@ -23,9 +23,26 @@ router.post('/create-student',
     userController.createStudent
 );
 
-router.post('/create-faculty', auth(USER_ROLE.admin), validateRequest(createFacultyValidationSchema), userController.createFaculty);
+router.post('/create-faculty', 
+    auth(USER_ROLE.admin), 
+    upload.single('file'),
+    (req: Request, res: Response, next: NextFunction) => {
+        req.body = JSON.parse(req.body.data);
+        next();
+    },
+    validateRequest(createFacultyValidationSchema),
+    userController.createFaculty
+);
 
-router.post('/create-admin', validateRequest(createAdminValidationSchema), userController.createAdmin);
+router.post('/create-admin', 
+    upload.single('file'), 
+    (req: Request, res: Response, next: NextFunction) => {
+        req.body = JSON.parse(req.body.data);
+        next();
+    },
+    validateRequest(createAdminValidationSchema), 
+    userController.createAdmin
+);
 
 router.get('/me', auth('student', 'faculty', 'admin'), userController.getMe);
 
