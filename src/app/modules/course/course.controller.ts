@@ -90,6 +90,19 @@ const removeFacultiesWithCourse = catchAsync(async(req, res) => {
     })
 })
 
+const getCourseFaculties = catchAsync(async(req, res) => {
+    const { courseId } = req.params;
+
+    const result = await courseServices.getCourseFacultiesFromDB(courseId);
+
+    sendResponse(res, {
+        statusCode: StatusCodes.OK,
+        success: true,
+        message: 'Course Faculties retrieved successfully',
+        data: result
+    })
+})
+
 export const courseControllers = {
     createCourse,
     getAllCourses,
@@ -98,4 +111,5 @@ export const courseControllers = {
     deleteCourse,
     assignFacultiesWithCourse,
     removeFacultiesWithCourse,
+    getCourseFaculties
 }

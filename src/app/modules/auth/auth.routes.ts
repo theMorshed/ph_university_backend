@@ -7,14 +7,30 @@ import { USER_ROLE } from "../user/user.constant";
 
 const router = Router();
 
-router.post('/login', validateRequest(authValidations.loginValidationSchema), authControllers.loginUser);
+router.post('/login', 
+    validateRequest(authValidations.loginValidationSchema), 
+    authControllers.loginUser
+);
 
-router.post('/change-password', auth(USER_ROLE.admin, USER_ROLE.faculty, USER_ROLE.student), validateRequest(authValidations.changePasswordValidationSchema), authControllers.changePassword);
+router.post('/change-password', 
+    auth(USER_ROLE.superAdmin, USER_ROLE.admin, USER_ROLE.faculty, USER_ROLE.student), 
+    validateRequest(authValidations.changePasswordValidationSchema), 
+    authControllers.changePassword
+);
 
-router.post('/refresh-token', validateRequest(authValidations.refreshTokenValidationSchema), authControllers.refreshToken);
+router.post('/refresh-token', 
+    validateRequest(authValidations.refreshTokenValidationSchema), 
+    authControllers.refreshToken
+);
 
-router.post('/forget-password', validateRequest(authValidations.forgetPasswordValidationSchema), authControllers.forgetPassword);
+router.post('/forget-password', 
+    validateRequest(authValidations.forgetPasswordValidationSchema), 
+    authControllers.forgetPassword
+);
 
-router.post('/reset-password', validateRequest(authValidations.resetPasswordValidationSchema), authControllers.resetPassword);
+router.post('/reset-password', 
+    validateRequest(authValidations.resetPasswordValidationSchema), 
+    authControllers.resetPassword
+);
 
 export const authRoutes = router;
