@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * Importing necessary modules and utilities:
  * - `Request`, `Response`, `NextFunction` from Express: Used to define middleware function signature.
@@ -52,7 +53,12 @@ const auth = (...requiredRoles: TUserRole[]) => {
         }
 
         // Verify and decode the JWT token
-        const decoded = jwt.verify(token, config.jwt_access_secret as string) as JwtPayload;
+        let decoded;
+        try {
+            decoded = jwt.verify(token, config.jwt_access_secret as string) as JwtPayload;
+        } catch(err) {
+            throw new AppError(StatusCodes.UNAUTHORIZED, 'Unauthorized user');
+        }
 
         const { role, userId, iat } = decoded;
 
