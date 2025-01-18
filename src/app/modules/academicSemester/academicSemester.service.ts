@@ -12,7 +12,7 @@ const createAcademicSemesterIntoDB = async(payload: TAcademicSemester) => {
     return result;
 }
 
-const getAllAcademicSemesterFromDB = async() => {
+const getAllAcademicSemesterFromDB = async(query: Record<string, unknown>) => {
     const result = await AcademicSemester.find({});
     return result;
 }
