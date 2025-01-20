@@ -98,9 +98,9 @@ const adminSchema = new Schema<TAdmin>({
 adminSchema.virtual('fullName').get(function () {
     return (
         this?.name?.firstName +
-        '' +
+        ' ' +
         this?.name?.middleName +
-        '' +
+        ' ' +
         this?.name?.lastName
     );
 });
