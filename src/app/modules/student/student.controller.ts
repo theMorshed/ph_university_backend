@@ -11,7 +11,8 @@ const getAllStudents: RequestHandler = catchAsync(async(req, res) => {
         statusCode: StatusCodes.OK,
         success: true,
         message: 'Student retrieved successfully',
-        data: result
+        meta: result.meta,
+        data: result.result
     })
 })
 
